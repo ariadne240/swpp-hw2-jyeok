@@ -12,7 +12,7 @@ class Logout extends Component {
         return (
         <div>
             <div className="Logout">
-                <br/><br/><button onClick={logoutHandler}> {this.props.account.name}, Logout! </button>
+                <br/><br/><button id="logout-button" onClick={logoutHandler}> {this.props.account.name}, Logout! </button>
             </div>
         </div>
         )

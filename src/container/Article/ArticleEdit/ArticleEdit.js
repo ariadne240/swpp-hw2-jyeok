@@ -47,8 +47,8 @@ class ArticleEdit extends Component {
                     this.setState({
                         edit: false
                     })}>Preview</button>
-                    <button id='confirm-create-article-button' name='confirm-create-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={ () => this.onPost()}>Confirm</button>
-                    <button id='back-create-article-button' name='back-create-article-button' onClick={() => this.props.history.push('/articles/'+ (/(\d+)/.exec(this.props.history.location.pathname)[1]))}>Back</button>
+                    <button id='confirm-edit-article-button' name='confirm-edit-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={ () => this.onPost()}>Confirm</button>
+                    <button id='back-edit-article-button' name='back-edit-article-button' onClick={() => this.props.history.push('/articles/'+ (/(\d+)/.exec(this.props.history.location.pathname)[1]))}>Back</button>
                 </div>
                 
                 {this.state.edit && <div className='ArticleEdit-Write'>
