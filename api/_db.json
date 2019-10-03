@@ -195,6 +195,12 @@
       "content": "Wow!",
       "id": 22,
       "author": "Software Lover"
+    },
+    {
+      "article_id": "21",
+      "author_id": 1,
+      "content": "sdf",
+      "id": 23
     }
   ],
   "user": [
@@ -203,7 +209,7 @@
       "email": "swpp@snu.ac.kr",
       "password": "iluvswpp",
       "name": "Software Lover",
-      "logged_in": true
+      "logged_in": false
     },
     {
       "id": 2,
