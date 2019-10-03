@@ -18,7 +18,34 @@ class ArticleDetail extends Component {
         commentInput: ''
     }
     
-    render() { 
+    render() {
+        let commentsRender = this.props.comments.map(
+            c => {
+                return (<div key={c.id} id={"comment-"+c.id} className='commentEntry'>
+                    <span className="comment-author"><b>{this.props.userList[c.author_id]}</b></span><br/>
+                    <span id={"comment-content-"+c.id}>{c.content}</span>
+                    {c.author_id == this.props.currentUser && <button id='edit-comment-button' onClick={
+                        (e) => {
+                            let editedComment = prompt("Enter the comment", c.content)
+                            if(editedComment && editedComment !== '') {
+                                Axios.patch(
+                                    '/api/comments/' + c.id,
+                                    {
+                                        content: editedComment
+                                    }
+                                ).then(() => this.props.loadComments(this.props.history.location.pathname.replace('/articles/', '')));
+                            }
+                        }
+                    }>Edit</button>}
+                    {c.author_id == this.props.currentUser && <button id='delete-comment-button' onClick={
+                        () => {
+                            Axios.delete('/api/comments/' + c.id)
+                            .then(() => this.props.loadComments(this.props.history.location.pathname.replace('/articles/', '')));
+                        }
+                    }>Delete</button>}
+                    </div>);
+            }
+        ) 
     return (
         <div className='ArticleDetail'>
             <div className='ArticleContainer'>
@@ -46,7 +73,7 @@ class ArticleDetail extends Component {
             <br/>
             <hr />
             <div className="comment">
-                {this.props.comments}
+                {commentsRender}
                 <input id='new-comment-content-input' onChange={(e) => {
                     this.setState({
                         commentInput: e.target.value

@@ -129,12 +129,6 @@
       "content": "It is 5 in the morning"
     },
     {
-      "id": 12,
-      "article_id": 16,
-      "author_id": 1,
-      "content": "I like it"
-    },
-    {
       "id": 13,
       "article_id": 17,
       "author_id": 1,
@@ -190,17 +184,58 @@
       "content": "Oh, what a misery"
     },
     {
+      "article_id": "15",
       "author_id": 1,
-      "article_id": 0,
-      "content": "Wow!",
-      "id": 22,
-      "author": "Software Lover"
+      "content": "asdfsdaf",
+      "id": 23
     },
     {
-      "article_id": "21",
+      "article_id": "16",
       "author_id": 1,
-      "content": "sdf",
-      "id": 23
+      "content": "sadf",
+      "id": 31
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "sadf",
+      "id": 32
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "sadf",
+      "id": 33
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "sadf",
+      "id": 34
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "sadf",
+      "id": 36
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "sadf",
+      "id": 37
+    },
+    {
+      "article_id": "0",
+      "author_id": 1,
+      "content": "wow~",
+      "id": 38
+    },
+    {
+      "article_id": "16",
+      "author_id": 1,
+      "content": "asdf",
+      "id": 39
     }
   ],
   "user": [
@@ -209,7 +244,7 @@
       "email": "swpp@snu.ac.kr",
       "password": "iluvswpp",
       "name": "Software Lover",
-      "logged_in": false
+      "logged_in": true
     },
     {
       "id": 2,

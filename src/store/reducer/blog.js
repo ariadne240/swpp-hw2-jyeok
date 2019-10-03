@@ -67,37 +67,9 @@ const reducer = (state = initialState, action) => {
             return usersState;
         
         case actionTypes.GET_COMMENTS:
-            let articleCommentsAuthor = action.data.map(
-                c => {
-                    return (<div key={c.id} id={"comment-"+c.id} className='commentEntry'>
-                        <span className="comment-author"><b>{state.users[c.author_id]}</b></span><br/>
-                        <span id={"comment-content-"+c.id}>{c.content}</span>
-                        {c.author_id == state.account.id && <button id='edit-comment-button' onClick={
-                            (e) => {
-                                let editedComment = prompt("Enter the comment", c.content)
-                                if(editedComment && editedComment !== '') {
-                                    Axios.patch(
-                                        '/api/comments/' + c.id,
-                                        {
-                                            content: editedComment
-                                        }
-                                    )
-                                    document.getElementById("comment-content-" + c.id).innerText = editedComment;
-                                }
-                            }
-                        }>Edit</button>}
-                        {c.author_id == state.account.id && <button id='delete-comment-button' onClick={
-                            () => {
-                                Axios.delete('/api/comments/' + c.id);
-                                document.getElementById("comment-"+c.id).parentNode.removeChild(document.getElementById("comment-"+c.id));
-                            }
-                        }>Delete</button>}
-                        </div>);
-                }
-            )
             return {
                 ...state,
-                comments: articleCommentsAuthor
+                comments: action.data
             };
 
         default:
