@@ -3,23 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import {history, store} from './store/store';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import blogReducer from './store/reducer/blog';
-import { connectRouter, routerMiddleware} from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import thunk from 'redux-thunk';
-import {createLogger} from 'redux-logger';
-
-const history = createBrowserHistory();
-const rootReducer = combineReducers({
-    blog: blogReducer,
-    router: connectRouter(history)
-});
-const logger = createLogger();
-
-const store = createStore(rootReducer, applyMiddleware(logger, thunk, routerMiddleware(history)));
 
 ReactDOM.render(<Provider store={store}><App history={history} /></Provider>, document.getElementById('root'));
 

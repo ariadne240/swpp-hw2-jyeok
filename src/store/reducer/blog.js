@@ -15,7 +15,6 @@ const initialState = {
     currentArticle: {},
     users: {},
     comments: []
-    // articleList: []
 }
 
 const reducer = (state = initialState, action) => {

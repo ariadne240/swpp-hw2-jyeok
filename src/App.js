@@ -9,7 +9,6 @@ import ArticleList from './container/Article/ArticleList/'
 import ArticleCreate from './container/Article/ArticleCreate'
 import ArticleDetail from './container/Article/ArticleDetail'
 import ArticleEdit from './container/Article/ArticleEdit/'
-import test from './test'
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -41,7 +40,6 @@ class App extends Component {
       <ConnectedRouter history={this.props.history}>
         <div className="App">
           <Switch>
-            <Route exact path='/test' component={test} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/articles' component={ArticleList} />
             <Route exact path='/articles/create' component={ArticleCreate} />

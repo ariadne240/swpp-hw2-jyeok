@@ -2,32 +2,24 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import * as actionCreator from '../../store/action/actionCreator';
 
-class Logout extends Component { 
-    render() {
+const Logout = (props) => { 
         const logoutHandler = () => {
-            this.props.onLogout(this.props.account)
-            this.props.history.push('/login')
+            props.onLogout(props.account)
+            props.history.push('/login')
         }
         
         return (
-        <div>
             <div className="Logout">
-                <br/><br/><button id="logout-button" onClick={logoutHandler}> {this.props.account.name}, Logout! </button>
+                <br/><br/><button id="logout-button" onClick={logoutHandler}> Logout! </button>
             </div>
-        </div>
-        )
+        )   
     }
-}
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: (account) => {
             dispatch(actionCreator.LOGOUT(account))            
         },
-
-        fetchLoginInfo: () => {
-            dispatch(actionCreator.GET_LOGIN_INFO())
-        }
     }
 }
 
