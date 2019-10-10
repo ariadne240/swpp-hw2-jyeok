@@ -13,7 +13,7 @@ class Login extends Component {
     componentDidMount() {
         this.props.fetchLoginInfo();
     }   
-
+    
     componentDidUpdate(prevProps, prevState) {
         if(this.props.account.logged_in) this.props.history.push('/articles')
     }
@@ -27,7 +27,7 @@ class Login extends Component {
         }
 
         return (
-             <div>
+             <div className="Login">
                 <h1>Login</h1>
                 <div className='LoginForm'>
                     Email: <input type="email" name="email-input" id="email-input" onChange={(e) => 

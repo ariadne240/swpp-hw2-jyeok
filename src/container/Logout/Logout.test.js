@@ -29,7 +29,7 @@ const stubInitialState = {
 const mockStore = getMockStore(stubInitialState);
 
 describe('<Logout />', () => {
-    let logout, spyFetchLoginInfo;
+    let logout;
     beforeEach(() => {
         logout = (
             <Provider store={mockStore}>

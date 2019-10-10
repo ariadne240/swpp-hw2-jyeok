@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 });
 
 const logger = createLogger();
-export const middlewares = [logger, thunk, routerMiddleware(history)]
+export const middlewares = [thunk, routerMiddleware(history)]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer,
