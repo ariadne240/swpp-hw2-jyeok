@@ -7,32 +7,30 @@ class ArticleEdit extends Component {
     state= {
         title: '',
         content: '',
-        edit: true
+        edit: true,
+        id: 0
     }
 
     componentDidMount() {
-        let id = /(\d+)/.exec(this.props.history.location.pathname)[1];
-        this.props.getArticle(id);
-        document.getElementById('article-title-input').value = this.props.article.title;
-        document.getElementById('article-content-input').value = this.props.article.content;
-        this.setState({
+         this.setState({
             title: this.props.article.title,
             content: this.props.article.content
-        })
+        });
+
+        if(document.getElementById('article-title-input')) document.getElementById('article-title-input').value = this.props.article.title;
+        if(document.getElementById('article-title-input')) document.getElementById('article-content-input').value = this.props.article.content;
     }
     
     onPost = () => {
-        const id = /(\d+)/.exec(this.props.history.location.pathname)[1];
-
-        Axios.patch('/articles/' + id, {
+        Axios.patch('/articles/' + this.state.id, {
             title: this.state.title,
             content: this.state.content
         })
         .then(res => {
-            this.props.history.push('/articles/'+id)
+            this.props.history.push('/articles/'+ this.state.id)
         });
     }
-
+    
     render() {
         return (
             <div className='ArticleEdit'>
