@@ -57,7 +57,7 @@ export const LOGOUT = (account) => {
             ...account,
             logged_in : false
         }
-        axios.put('/api/user/1', newAccountState)
+        return axios.put('/api/user/1', newAccountState)
         .then(
             dispatch(LOGOUT_(newAccountState))
         );
@@ -74,7 +74,7 @@ export const LOGOUT_ = (account) => {
 
 export const GET_ARTICLE = (id) => {
     return dispatch => {
-        axios.get('/articles/' + id)
+        return axios.get('/api/articles/' + id)
         .then(res => {
             dispatch(GET_ARTICLE_(res));
         })
@@ -95,9 +95,25 @@ export const GET_ARTICLE_ = (res) => {
     }
 }
 
+export const GET_ARTICLES = () => {
+    return dispatch => {
+        return axios.get('/api/articles')
+        .then(res => {
+            dispatch(GET_ARTICLES_(res));
+        })
+    }
+}
+
+export const GET_ARTICLES_ = (res) => {
+    return {
+        type: actionTypes.GET_ARTICLES,
+        articles: res.data
+    }
+}
+
 export const GET_USERS = () => {
     return dispatch => {
-        axios.get('/api/user')
+        return axios.get('/api/user')
         .then(
             (res) => dispatch(GET_USERS_(res.data))
         );
@@ -113,7 +129,7 @@ export const GET_USERS_ = (data) => {
 
 export const GET_COMMENTS = (articleId) => {
     return dispatch => {
-        axios.get('/api/comments')
+        return axios.get('/api/comments')
         .then((res) =>
             dispatch(GET_COMMENTS_(articleId, res.data))
         )

@@ -6,3 +6,4 @@ export const GET_ARTICLE = "GET_ARTICLE";
 export const GET_USERS = "GET_USERS";
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
 export const GET_COMMENTS = "GET_COMMENTS";
+export const GET_ARTICLES = "GET_ARTICLES";

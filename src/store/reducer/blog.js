@@ -13,6 +13,7 @@ const initialState = {
 
     redirectUrl: '',
     currentArticle: {},
+    articles: [],
     users: {},
     comments: []
 }
@@ -36,7 +37,6 @@ const reducer = (state = initialState, action) => {
             return loginedState;
 
         case actionTypes.LOGIN_FAILED:
-            console.log("For debug; Login failed", action.account);
             break;
 
         case actionTypes.LOGOUT:
@@ -70,6 +70,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 comments: action.data
             };
+
+        case actionTypes.GET_ARTICLES:
+            return {
+                ...state,
+                articles: action.articles
+            }
 
         default:
             break;

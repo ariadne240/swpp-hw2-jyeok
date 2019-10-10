@@ -20,6 +20,7 @@ const stubInitialState = {
 
     redirectUrl: '',
     currentArticle: {},
+    articles: [],
     users: {},
     comments: []
 }
