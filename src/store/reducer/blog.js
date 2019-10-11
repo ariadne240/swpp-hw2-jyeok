@@ -1,6 +1,4 @@
 import * as actionTypes from '../action/actionTypes';
-import React from 'react';
-import Axios from 'axios';
 
 const initialState = {
     account: {
@@ -75,8 +73,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 articles: action.articles
-            }
+            };
 
+        case actionTypes.POST_ARTICLE:
+            return {
+                ...state,
+                currentArticle: action.data
+            };
+            
         default:
             break;
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Logout from '../../Logout'
 import {connect} from 'react-redux';
 import Axios from 'axios';
+import * as actionCreator from '../../../store/action/actionCreator';
 class ArticleCreate extends Component {
     state = {
         title: '',
@@ -9,31 +10,30 @@ class ArticleCreate extends Component {
         edit: true,
     };
 
-    onPost = () => {
-        Axios.post('/articles', {
+    onClickPost = async () => {
+        this.props.onPost({
             author_id: this.props.account.id,
             title: this.state.title,
             content: this.state.content
-        })
-        .then((res) => {
-            this.props.history.push('/articles/' + res.data.id)
-        })
-    }
+        });
+    }  
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.currentArticle.id !== this.props.currentArticle.id)
+            this.props.history.push('/articles/' + this.props.currentArticle.id);
+    }
+      
     render() {
         return (
             <div className='ArticleCreate'>
                 <div className='ArticleCreate-Common'>
                     <button id='write-tab-button' name='write-tab-button' value={this.state.title} onClick={(e) => this.setState({
                         edit: true
-                    }, (e) => {
-                        document.getElementById('article-title-input').setAttribute('value', this.state.title);
-                        document.getElementById('article-content-input').value = this.state.content;
                     })}>Write</button>
                     <button id='preview-tab-button' name='preview-tab-button' value={this.state.title} onClick={() => this.setState({
                         edit: false
                     })}>Preview</button>
-                    <button id='confirm-create-article-button' name='confirm-create-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={this.onPost}>Confirm</button>
+                    <button id='confirm-create-article-button' name='confirm-create-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={this.onClickPost}>Confirm</button>
                     <button id='back-create-article-button' name='back-create-article-button' onClick={() => {
                         this.props.history.push('/articles/')
                     }}>Back</button>
@@ -45,8 +45,8 @@ class ArticleCreate extends Component {
                         this.setState({
                             title: e.target.value
                         })
-                    }} /> <br/>
-                    <textarea id='article-content-input' name='article-content-input' placeholder='content here' onChange={(e) => {
+                    }} value={this.state.title}/> <br/>
+                    <textarea id='article-content-input' name='article-content-input' placeholder='content here' value={this.state.content} onChange={(e) => {
                         this.setState({
                             content: e.target.value
                         })
@@ -71,8 +71,16 @@ class ArticleCreate extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        account: state.blog.account
+        account: state.blog.account,
+        currentArticle: state.blog.currentArticle
     }
 }
 
-export default connect(mapStateToProps, null)(ArticleCreate);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPost : (info) => {
+            return dispatch(actionCreator.POST_ARTICLE(info))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleCreate);

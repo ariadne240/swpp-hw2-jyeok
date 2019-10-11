@@ -8,26 +8,33 @@ class ArticleEdit extends Component {
         title: '',
         content: '',
         edit: true,
-        id: 0
+        id: 0,
+        submitted: false
     }
 
     componentDidMount() {
          this.setState({
             title: this.props.article.title,
-            content: this.props.article.content
+            content: this.props.article.content,
+            id: this.props.article.id
         });
+    }
 
-        if(document.getElementById('article-title-input')) document.getElementById('article-title-input').value = this.props.article.title;
-        if(document.getElementById('article-title-input')) document.getElementById('article-content-input').value = this.props.article.content;
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.submitted)
+            this.props.history.push('/articles/' + this.state.id);
     }
     
-    onPost = () => {
-        Axios.patch('/articles/' + this.state.id, {
+    
+    onClickEdit = async () => {
+        this.props.onEdit('/articles/' + this.state.id, {
             title: this.state.title,
             content: this.state.content
-        })
-        .then(res => {
-            this.props.history.push('/articles/'+ this.state.id)
+        });
+
+        this.setState({
+            ...this.state,
+            submitted: true
         });
     }
     
@@ -37,26 +44,23 @@ class ArticleEdit extends Component {
                 <div className='ArticleEdit-Common'>
                     <button id='write-tab-button' name='write-tab-button' onClick={(e) => this.setState({
                         edit: true
-                    }, (e) => {
-                        document.getElementById('article-title-input').setAttribute('value', this.state.title);
-                        document.getElementById('article-content-input').value = this.state.content;
                     })}>Write</button>
                     <button id='preview-tab-button' name='preview-tab-button' onClick={() => 
                     this.setState({
                         edit: false
                     })}>Preview</button>
-                    <button id='confirm-edit-article-button' name='confirm-edit-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={ () => this.onPost()}>Confirm</button>
-                    <button id='back-edit-article-button' name='back-edit-article-button' onClick={() => this.props.history.push('/articles/'+ (/(\d+)/.exec(this.props.history.location.pathname)[1]))}>Back</button>
+                    <button id='confirm-edit-article-button' name='confirm-edit-article-button' disabled={this.state.title === '' || this.state.content === ''} onClick={ () => this.onClickEdit()}>Confirm</button>
+                    <button id='back-edit-article-button' name='back-edit-article-button' onClick={() => this.props.history.push('/articles/'+ this.state.id)}>Back</button>
                 </div>
                 
                 {this.state.edit && <div className='ArticleEdit-Write'>
                 <h2> Article Write </h2>
-                    <input type='text' id='article-title-input' name='article-title-input' placeholder='title here' onChange={(e) => {
+                    <input type='text' id='article-title-input' name='article-title-input' placeholder='title here' value={this.state.title} onChange={(e) => {
                         this.setState({
                             title: e.target.value
                         })
                     }} /> <br/>
-                    <textarea id='article-content-input' name='article-content-input' placeholder='content here' onChange={(e) => {
+                    <textarea id='article-content-input' name='article-content-input' placeholder='content here' value={this.state.content} onChange={(e) => {
                         this.setState({
                             content: e.target.value
                         })
@@ -92,8 +96,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticle: (id) => {
-            dispatch(actionCreators.GET_ARTICLE(id))
+        onEdit: (url, article) => {
+            return dispatch(actionCreators.EDIT_ARTICLE(url, article))
         }
     }
 }

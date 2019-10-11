@@ -21,8 +21,8 @@ const stubInitialState = {
     redirectUrl: '',
     currentArticle: {id:0, author_id:0, title:'test_title', content:'test_content'},
     articles: [],
-    users: {},
-    comments: []
+    users: {1: 'user1', 2:'user2', 3:'user3'},
+    comments: [{id:0, articleId: 0, author_id: 1, content:'aa'}, {id:1, articleId: 0, author_id: 2, content:'bb'}, {id:2, articleId: 0, author_id: 3, content:'cc'}]
 }
 
 const mockStore = getMockStore(stubInitialState);

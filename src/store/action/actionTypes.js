@@ -7,3 +7,5 @@ export const GET_USERS = "GET_USERS";
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const GET_ARTICLES = "GET_ARTICLES";
+export const POST_ARTICLE = "POST_ARTICLE";
+export const EDIT_ARTICLE = "EDIT_ARTICLE";

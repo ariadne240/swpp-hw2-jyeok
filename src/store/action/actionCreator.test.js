@@ -5,6 +5,8 @@ import {store} from '../store';
 describe('actionCreators', () => {
     afterEach(() => {
         jest.clearAllMocks();
+
+        const windowSpy = jest.spyOn(window, 'alert').mockImplementation(()=>{});
     });
         
     it('GET_LOGIN_INFO should fetch login info correctly when logged out', (done) => {
@@ -296,4 +298,68 @@ describe('actionCreators', () => {
           done();
         })
       });
+
+      it('should post article', (done) => {
+        const stubArticle = {
+          author_id: 1,
+          title: 'test_title',
+          content: 'test_content'
+        };
+
+        const spy = jest.spyOn(axios, 'post')
+        .mockImplementation((info) => {
+          return new Promise((res, rej) => {
+            const result = {
+              status: 304,
+              data: {
+                ...info,
+                id: 10
+              }
+            };
+            return res(result);
+          });
+        });
+
+        store.dispatch(actionCreators.POST_ARTICLE(stubArticle)).then(
+          () => {
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+          }
+        )
+      });
+
+      it('should edit article', (done) => {
+        const stubArticle = {
+            id: 0,
+            author_id: 1,
+            title: 'title',
+            content: 'content'
+        };
+        const stubPrevArticle = {
+          id: 0,
+          author_id: 1,
+          title: 'prevtitle',
+          content: 'prevcontent'
+        }
+
+        const spyEdit = jest.spyOn(axios, 'patch')
+        .mockImplementation((url, info) => {
+            return new Promise((res, rej) => {
+              const result = {
+                status: 304,
+                data: {
+                  ...stubPrevArticle,
+                  title: stubArticle.title,
+                  content: stubArticle.content
+                }
+              };
+              res(result);
+            });
+        });
+
+        store.dispatch(actionCreators.EDIT_ARTICLE('/articles/999', stubArticle)).then(() => {
+          expect(spyEdit).toHaveBeenCalledTimes(1);
+          done();
+        });
+    });
 })

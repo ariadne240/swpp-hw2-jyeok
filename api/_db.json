@@ -4,7 +4,7 @@
       "id": 0,
       "author_id": 1,
       "title": "10 React JS Articles Every Web Developer Should Read",
-      "content": "Hello Guys, React or React JS is a JavaScript front-end library from Facebook which lets you create HTML based GUI. It makes the task easier by providing a component-based architecture which was only available to languages like Java and C# before."
+      "content": "Hello Guys, React or React JS is aff JavaScript front-end library from Facebook which lets you create HTML based GUI. It makes the task easier by providing a component-based architecture which was only available to languages like Java and C# before."
     },
     {
       "id": 11,
@@ -15,8 +15,8 @@
     {
       "id": 12,
       "author_id": 1,
-      "title": "Building the New facebook.com with React, GraphQL and Relay",
-      "content": "Open source projects like React, GraphQL and Relay are powering more and more Facebook services. In this session, we'll discuss how we use the latest features of these technologies, like React Suspense, to help deliver a high quality, modern web experience at Facebook."
+      "title": "Buildasdfsadfing the New facebook.com with React, GraphQL and Relay",
+      "content": "Osdafsdfafdpen source projects like React, GraphQL and Relayasfaf are powering more and more Facebook services. In this session, we'll discuss how we use the latest features of these technologies, like React Suspense, to help deliver a high quality, modern web experience at Facebook."
     },
     {
       "id": 13,
@@ -65,12 +65,6 @@
       "author_id": 3,
       "title": "ReactJS Testing",
       "content": "Jest is a delightful JavaScript Testing Framework with a focus on simplicity."
-    },
-    {
-      "author_id": 1,
-      "title": "ㅁㅇㄴㄹ",
-      "content": "ㅁㅇㄴㄹ",
-      "id": 21
     }
   ],
   "comments": [
@@ -141,13 +135,6 @@
       "content": "I like it"
     },
     {
-      "id": 13,
-      "article_id": 17,
-      "author_id": 1,
-      "content": "I don't think so",
-      "author": "Software Lover"
-    },
-    {
       "id": 14,
       "article_id": 17,
       "author_id": 2,
@@ -175,7 +162,7 @@
       "id": 18,
       "article_id": 19,
       "author_id": 1,
-      "content": "My dog is cute"
+      "content": "dsfda"
     },
     {
       "id": 19,
@@ -201,6 +188,30 @@
       "content": "Wow!",
       "id": 22,
       "author": "Software Lover"
+    },
+    {
+      "article_id": "19",
+      "author_id": 1,
+      "content": "safdasdfsafd",
+      "id": 23
+    },
+    {
+      "article_id": "19",
+      "author_id": 1,
+      "content": "safdasdfsafd",
+      "id": 24
+    },
+    {
+      "article_id": "19",
+      "author_id": 1,
+      "content": "safdasdfsafd",
+      "id": 25
+    },
+    {
+      "article_id": "19",
+      "author_id": 1,
+      "content": "safdasdfsafd",
+      "id": 26
     }
   ],
   "user": [
@@ -209,7 +220,7 @@
       "email": "swpp@snu.ac.kr",
       "password": "iluvswpp",
       "name": "Software Lover",
-      "logged_in": false
+      "logged_in": true
     },
     {
       "id": 2,

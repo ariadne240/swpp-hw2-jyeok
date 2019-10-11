@@ -31,7 +31,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    //console.log("updated props : " , this.props);
     if(!this.props.account.logged_in) this.props.history.push(this.props.redirectUrl);
   }
 

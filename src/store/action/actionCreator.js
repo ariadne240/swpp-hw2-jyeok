@@ -83,6 +83,7 @@ export const GET_ARTICLE = (id) => {
 
 export const GET_ARTICLE_ = (res) => {
     const articleInformation = {
+        id: res.data.id,
         title: res.data.title,
         content: res.data.content,
         author_id: res.data.author_id,
@@ -141,5 +142,33 @@ export const GET_COMMENTS_ = (articleId, comments) => {
     return {
         type: actionTypes.GET_COMMENTS,
         data: articleComments
+    }
+}
+
+export const POST_ARTICLE = (articleInfo) => {
+    return dispatch => {
+        return axios.post('/api/articles', articleInfo)
+        .then(res => dispatch(POST_ARTICLE_(res)));
+    }
+}
+
+export const POST_ARTICLE_ = (res) => {
+    return {
+        type: actionTypes.POST_ARTICLE,
+        data: res.data
+    }
+}
+
+export const EDIT_ARTICLE = (url, info) => {
+    return dispatch => {
+        return axios.patch(url, info)
+        .then(res => dispatch(EDIT_ARTICLE_(res)));
+    }
+}
+
+export const EDIT_ARTICLE_ = (res) => {
+    return {
+        type: actionTypes.EDIT_ARTICLE,
+        data: res.data
     }
 }
