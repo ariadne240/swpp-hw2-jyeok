@@ -28,9 +28,9 @@ const stubInitialState = {
 const mockStore = getMockStore(stubInitialState);
 
 describe('<ArticleDetail />', () => {
-    let articleDetail;
-
+    let articleDetail, spyGetComments, spyGetArticle, spyGetLogin, spyGetUsers
     beforeEach(() => {
+        jest.clearAllMocks();
         articleDetail = (
             <Provider store={mockStore}>
                 <ConnectedRouter history={history}>
@@ -40,12 +40,58 @@ describe('<ArticleDetail />', () => {
                 </ConnectedRouter>
             </Provider>  
         );
-
+        spyGetComments = jest.spyOn(actionCreators, 'GET_COMMENTS')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
         });
+
+        spyGetArticle = jest.spyOn(actionCreators, 'GET_ARTICLE')
+        .mockImplementation((id) => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
+
+        spyGetLogin = jest.spyOn(actionCreators, 'GET_LOGIN_INFO')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
+
+        spyGetUsers = jest.spyOn(actionCreators, 'GET_USERS')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
+    });
 
     it('should render', () => {
         const comp = mount(articleDetail);
         const wrp = comp.find('.ArticleDetail');
         expect(wrp.length).toBe(1);
+        expect(comp.find('#article-title').length).toBe(1)
+        expect(comp.find('#article-author').length).toBe(1)
+        expect(comp.find('#article-content').length).toBe(1)
+    });
+
+    it('should handle back behavior', () => {
+        const comp = mount(articleDetail);
+        const wrp = comp.find('#back-detail-article-button');
+        const spyBack = jest.spyOn(history, 'push')
+        .mockImplementation((url) => {});
+        wrp.simulate('click');
+        expect(spyBack).toHaveBeenCalledWith('/articles/');
     });
 });
