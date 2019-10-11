@@ -89,7 +89,13 @@ const reducer = (state = initialState, action) => {
                     action.data
                 ]
             };
-            
+
+        case actionTypes.DELETE_ARTICLE:
+            return {
+                ...state,
+                currentArticle: {},
+                comments: []
+            }
         default:
             break;
     }

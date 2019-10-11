@@ -178,6 +178,15 @@ describe('<ArticleDetail /> when usual', () => {
     })
 
     it('should delete article', () => {
-        
+        const comp = mount(articleDetail);
+        const wrp = comp.find("#delete-article-button");
+        const spy = jest.spyOn(actionCreators, 'DELETE_ARTICLE')
+        .mockImplementation((id) => {
+            return dispatch => {
+                return {type: ''}
+            }
+        });
+        wrp.simulate('click');
+        expect(spy).toHaveBeenCalledTimes(1);
     })
 })

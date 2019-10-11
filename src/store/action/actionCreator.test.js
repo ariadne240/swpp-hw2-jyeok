@@ -388,4 +388,23 @@ describe('actionCreators', () => {
         done();
       });
     });
+
+    it('should delete articles', (done) => {
+      const spyDel = jest.spyOn(axios, 'delete')
+      .mockImplementation((url) => {
+        return new Promise((res, rej) => {
+          const result = {
+            status: 200,
+            data: spyDel
+          }
+          res(result);
+        });
+      })
+
+      store.dispatch(actionCreators.DELETE_ARTICLE("url"))
+      .then(() => {
+        expect(spyDel).toHaveBeenCalledTimes(1);
+        done();
+      })
+    });
 })

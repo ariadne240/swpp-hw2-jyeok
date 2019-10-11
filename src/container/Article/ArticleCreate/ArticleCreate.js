@@ -8,6 +8,7 @@ class ArticleCreate extends Component {
         title: '',
         content: '',
         edit: true,
+        posted: false
     };
 
     onClickPost = async () => {
@@ -19,6 +20,7 @@ class ArticleCreate extends Component {
     }  
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('prevProps.currentArticle.id', prevProps.currentArticle.id)
         if(prevProps.currentArticle.id !== this.props.currentArticle.id)
             this.props.history.push('/articles/' + this.props.currentArticle.id);
     }

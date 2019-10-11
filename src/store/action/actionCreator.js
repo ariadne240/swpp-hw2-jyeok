@@ -182,7 +182,7 @@ export const EDIT_COMMENT = (url, comment) => {
 
 export const EDIT_COMMENT_ = (res) => {
     return {
-        type: actionTypes.EDIT_COMMENT,
+        type: actionTypes.GET_ARTICLES,
         data: res.data
     }
 }
@@ -190,13 +190,16 @@ export const EDIT_COMMENT_ = (res) => {
 export const DELETE_ARTICLE = (url) => {
     return dispatch => {
         return axios.delete(url)
-        .then(res => DELETE_ARTICLE_(res))
+        .then((res) => {
+        axios.get('/api/articles')
+            .then(dispatch(DELETE_ARTICLE_(res)))
+        })
     }
 }
 
 export const DELETE_ARTICLE_ = (res) => {
     return {
-        type: actionTypes.GET_ARTICLES,
+        type: actionTypes.DELETE_ARTICLE,
         data: res.data
     }
 }

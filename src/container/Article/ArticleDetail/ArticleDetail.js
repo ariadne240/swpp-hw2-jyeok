@@ -29,6 +29,11 @@ class ArticleDetail extends Component {
         }
     }
 
+    onDelete = (url) => {
+        this.props.deleteArticle('/api/articles/'+url);
+        this.props.history.push('/articles');
+    }
+
     render() {
         let commentsRender = this.props.comments.map(
             (c, idx) => {
@@ -67,8 +72,7 @@ class ArticleDetail extends Component {
                 }>Edit</button>}
                 {this.props.article.author_id === this.props.currentUser && <button id='delete-article-button' onClick={
                     () => {
-                        Axios.delete('/api/articles/' + this.props.history.location.pathname.replace('/articles/', ''))
-                        this.props.history.push('/articles/');
+                        this.onDelete(this.props.article.id);
                     }
                 }>Delete</button>}
                 <button id='back-detail-article-button' onClick={() => this.props.history.push('/articles/')}>Back</button>
@@ -128,6 +132,10 @@ const mapDispatchToProps = (dispatch) => {
 
         editComments: (url, comment) => {
             return dispatch(actionCreator.EDIT_COMMENT(url, comment))
+        },
+
+        deleteArticle: (url) => {
+            return dispatch(actionCreator.DELETE_ARTICLE(url))
         }
     }
 }
