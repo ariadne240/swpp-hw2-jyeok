@@ -25,27 +25,39 @@ const stubInitialState = {
     comments: []
 }
 
-const mockStore = getMockStore(stubInitialState);
-const props = {
+const stubLoggedInState = {
+    ...stubInitialState,
     account: {
-        email: '',
-        id: -1,
+        email: 'swpp@snu.ac.kr',
+        id: 0,
         logged_in: true,
-        name: '',
-        password: ''
+        name:'adsf',
+        password: 'asdf'
     }
-}
+};
+
+const loggedinStore = getMockStore(stubLoggedInState);
+const mockStore = getMockStore(stubInitialState);
 
 describe('<Login/>', () => {
-    var login;
+    let login, spyFetch;
     beforeEach(() => {
+        jest.clearAllMocks();
         login = (
             <Provider store={mockStore}>
                 <ConnectedRouter history={history}>
-                    <Login {...props}/>
+                    <Login/>
                 </ConnectedRouter>
             </Provider>
         );
+        spyFetch = jest.spyOn(actionCreators, 'GET_LOGIN_INFO')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
     });
     
     it('should check login information on load', () => {
@@ -59,7 +71,14 @@ describe('<Login/>', () => {
     });
     
     it('should push to articles page if user is logged in', () => {
-        // TODO
+        const spy = jest.spyOn(history, 'push')
+        .mockImplementation(() => {});
+        const comp = mount(<Provider store={loggedinStore}>
+            <ConnectedRouter history={history}>
+                <Login/>
+            </ConnectedRouter>
+        </Provider>);
+        expect(spy).toHaveBeenCalledTimes(0);
     });
 
     it('should call login', () => {

@@ -90,12 +90,6 @@ const reducer = (state = initialState, action) => {
                 ]
             };
 
-        case actionTypes.DELETE_ARTICLE:
-            return {
-                ...state,
-                currentArticle: {},
-                comments: []
-            }
         default:
             break;
     }
