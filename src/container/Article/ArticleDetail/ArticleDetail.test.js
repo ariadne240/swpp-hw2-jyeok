@@ -94,4 +94,14 @@ describe('<ArticleDetail />', () => {
         wrp.simulate('click');
         expect(spyBack).toHaveBeenCalledWith('/articles/');
     });
-});
+
+    it('should disable add comment behavior', () => {
+        const comp = mount(articleDetail);
+        const wrp = comp.find('#confirm-create-comment-button');
+        const inst = comp.find(ArticleDetail.WrappedComponent).instance();
+        inst.setState({
+            commentInput: ''
+        });
+        expect(wrp.props().disabled).toBeTruthy();
+    });
+})
