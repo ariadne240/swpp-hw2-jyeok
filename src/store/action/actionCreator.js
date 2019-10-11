@@ -172,3 +172,31 @@ export const EDIT_ARTICLE_ = (res) => {
         data: res.data
     }
 }
+
+export const EDIT_COMMENT = (url, comment) => {
+    return dispatch => {
+        return axios.patch(url, comment)
+        .then(res => dispatch(EDIT_COMMENT_(res)))
+    }
+}
+
+export const EDIT_COMMENT_ = (res) => {
+    return {
+        type: actionTypes.EDIT_COMMENT,
+        data: res.data
+    }
+}
+
+export const DELETE_ARTICLE = (url) => {
+    return dispatch => {
+        return axios.delete(url)
+        .then(res => DELETE_ARTICLE_(res))
+    }
+}
+
+export const DELETE_ARTICLE_ = (res) => {
+    return {
+        type: actionTypes.GET_ARTICLES,
+        data: res.data
+    }
+}

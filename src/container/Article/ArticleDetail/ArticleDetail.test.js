@@ -12,22 +12,36 @@ import * as actionCreators from '../../../store/action/actionCreator';
 const stubInitialState = {
     account: {
         email: '',
-        id: 0,
+        id: 1,
         logged_in: true,
         name: 'mock_user',
         password: ''
     },
 
     redirectUrl: '',
-    currentArticle: {id:0, author_id:0, title:'test_title', content:'test_content'},
+    currentArticle: {id:1, author_id:1, title:'test_title', content:'test_content'},
     articles: [],
     users: {1: 'user1', 2:'user2', 3:'user3'},
     comments: [{id:0, articleId: 0, author_id: 1, content:'aa'}, {id:1, articleId: 0, author_id: 2, content:'bb'}, {id:2, articleId: 0, author_id: 3, content:'cc'}]
 }
 
+const stub_no_my_articleState = {
+    ...stubInitialState,
+    currentArticle: {
+        id: 1, author_id: 0, title: 'test', content: 'test'
+    }
+}
+
+const stub_no_my_comments = {
+    ...stubInitialState,
+    comments: [{id:0, articleId: 0, author_id: 2, content:'aa'}, {id:1, articleId: 0, author_id: 2, content:'bb'}, {id:2, articleId: 0, author_id: 3, content:'cc'}]
+}
+
+const notMyArticleStore = getMockStore(stub_no_my_articleState);
+const noMyCommentsStore = getMockStore(stub_no_my_comments);
 const mockStore = getMockStore(stubInitialState);
 
-describe('<ArticleDetail />', () => {
+describe('<ArticleDetail /> when usual', () => {
     let articleDetail, spyGetComments, spyGetArticle, spyGetLogin, spyGetUsers
     beforeEach(() => {
         jest.clearAllMocks();
@@ -95,13 +109,75 @@ describe('<ArticleDetail />', () => {
         expect(spyBack).toHaveBeenCalledWith('/articles/');
     });
 
-    it('should disable add comment behavior', () => {
+    it('should handle article edit behavior', () => {
         const comp = mount(articleDetail);
-        const wrp = comp.find('#confirm-create-comment-button');
-        const inst = comp.find(ArticleDetail.WrappedComponent).instance();
-        inst.setState({
-            commentInput: ''
-        });
-        expect(wrp.props().disabled).toBeTruthy();
+        const wrp = comp.find("#edit-article-button");
+        const spyDelete = jest.spyOn(history, 'push')
+        .mockImplementation((url) => {});
+        wrp.simulate('click');
+        expect(spyDelete).toHaveBeenCalledTimes(1);
     });
+
+    it('should edit comment', () => {
+        const comp = mount(articleDetail);
+        const wrp = comp.find("#edit-comment-button");
+        const spyPrompt = jest.spyOn(window, 'prompt')
+        .mockImplementation(() => {
+            return "Abc"
+        });
+        const spyEdit = jest.spyOn(actionCreators, 'EDIT_COMMENT')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
+        const spyPush = jest.spyOn(actionCreators, 'GET_COMMENTS')
+        .mockImplementation(() => {
+            return dispatch => {
+                return {
+                    type: ''
+                }
+            }
+        });
+        wrp.simulate('click');
+        expect(spyPrompt).toHaveBeenCalledTimes(1);
+        expect(spyEdit).toHaveBeenCalledTimes(1);
+        expect(spyPush).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not render article button', () => {
+        const comp = mount(<Provider store={notMyArticleStore}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                     <ArticleDetail history={history}></ArticleDetail>
+                </Switch>
+            </ConnectedRouter>
+        </Provider>);
+    
+        const editArticle = comp.find('#edit-article-button');
+        const deleteArticle = comp.find('#delete-article-button');
+        expect(editArticle.length).toBe(0);
+        expect(deleteArticle.length).toBe(0);
+    });
+
+    it('should not redner edit button', () => {
+        const comp = mount(<Provider store={noMyCommentsStore}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                     <ArticleDetail history={history}></ArticleDetail>
+                </Switch>
+            </ConnectedRouter>
+        </Provider>);
+
+        const editComment = comp.find('#edit-comment-button');
+        const deleteComment = comp.find('#delete-comment-button');
+        expect(editComment.length).toBe(0);
+        expect(deleteComment.length).toBe(0);
+    })
+
+    it('should delete article', () => {
+        
+    })
 })

@@ -80,6 +80,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 currentArticle: action.data
             };
+        
+        case actionTypes.EDIT_COMMENT:
+            return {
+                ...state,
+                comments: [
+                    ...state.comments,
+                    action.data
+                ]
+            };
             
         default:
             break;

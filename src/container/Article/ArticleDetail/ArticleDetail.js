@@ -17,24 +17,27 @@ class ArticleDetail extends Component {
     state = {
         commentInput: ''
     }
-    
+
+    onEdit = (c) => {
+        let editedComment = prompt("Enter the comment", c.content)
+        console.log(editedComment);
+        if(editedComment && editedComment !== '') {
+            this.props.editComments('/api/comments/' + c.id, {
+                content: editedComment
+            })
+            this.props.loadComments(this.props.article.id);
+        }
+    }
+
     render() {
         let commentsRender = this.props.comments.map(
-            c => {
-                return (<div key={c.id} id={"comment-"+c.id} className='commentEntry'>
+            (c, idx) => {
+                return (<div key={idx} id={"comment-"+c.id} className='commentEntry'>
                     <span className="comment-author"><b>{this.props.userList[c.author_id]}</b></span><br/>
                     <span id={"comment-content-"+c.id}>{c.content}</span>
                     {c.author_id == this.props.currentUser && <button id='edit-comment-button' onClick={
                         (e) => {
-                            let editedComment = prompt("Enter the comment", c.content)
-                            if(editedComment && editedComment !== '') {
-                                Axios.patch(
-                                    '/api/comments/' + c.id,
-                                    {
-                                        content: editedComment
-                                    }
-                                ).then(() => this.props.loadComments(this.props.history.location.pathname.replace('/articles/', '')));
-                            }
+                            this.onEdit(c);
                         }
                     }>Edit</button>}
                     {c.author_id == this.props.currentUser && <button id='delete-comment-button' onClick={
@@ -65,7 +68,7 @@ class ArticleDetail extends Component {
                 {this.props.article.author_id === this.props.currentUser && <button id='delete-article-button' onClick={
                     () => {
                         Axios.delete('/api/articles/' + this.props.history.location.pathname.replace('/articles/', ''))
-                        .then(() => this.props.history.push('/articles/'));
+                        this.props.history.push('/articles/');
                     }
                 }>Delete</button>}
                 <button id='back-detail-article-button' onClick={() => this.props.history.push('/articles/')}>Back</button>
@@ -108,19 +111,23 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadUsers: () => {
-            dispatch(actionCreator.GET_USERS());
+            return dispatch(actionCreator.GET_USERS());
         },
 
         loadArticle: (id) => {
-            dispatch(actionCreator.GET_ARTICLE(id));
+            return dispatch(actionCreator.GET_ARTICLE(id));
         },
 
         loadComments: (articleId) => {
-            dispatch(actionCreator.GET_COMMENTS(articleId));
+            return dispatch(actionCreator.GET_COMMENTS(articleId));
         },
 
         fetchLoginInfo: () => {
-            dispatch(actionCreator.GET_LOGIN_INFO());
+            return dispatch(actionCreator.GET_LOGIN_INFO());
+        },
+
+        editComments: (url, comment) => {
+            return dispatch(actionCreator.EDIT_COMMENT(url, comment))
         }
     }
 }

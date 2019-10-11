@@ -9,3 +9,4 @@ export const GET_COMMENTS = "GET_COMMENTS";
 export const GET_ARTICLES = "GET_ARTICLES";
 export const POST_ARTICLE = "POST_ARTICLE";
 export const EDIT_ARTICLE = "EDIT_ARTICLE";
+export const EDIT_COMMENT = "EDIT_COMMENT"

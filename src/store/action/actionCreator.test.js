@@ -362,4 +362,30 @@ describe('actionCreators', () => {
           done();
         });
     });
+
+    it('should edit comments', (done) => {
+      const stubNewComment = {
+        id: 0,
+        author_id:0,
+        article_id:0,
+        content: 'asdflfgladsf'
+      };
+
+      const spyEdit = jest.spyOn(axios, 'patch')
+      .mockImplementation((url, info) => {
+        return new Promise((res, rej) => {
+          const result = {
+            status: 304,
+            data: stubNewComment
+          }
+
+          res(result);
+        });
+      })
+
+      store.dispatch(actionCreators.EDIT_COMMENT('path', stubNewComment)).then(() => {
+        expect(spyEdit).toHaveBeenCalledTimes(1);
+        done();
+      });
+    });
 })
